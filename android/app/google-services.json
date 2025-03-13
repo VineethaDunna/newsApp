@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "593826816825",
+    "project_id": "newsapp-eec94",
+    "storage_bucket": "newsapp-eec94.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593826816825:android:31e6a86c80451ffa2f3ee8",
+        "android_client_info": {
+          "package_name": "com.finenews"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGZnl32q-kjXuKtQ5X-zzGcU86iGC5330"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593826816825:android:77531895ab8a9ad92f3ee8",
+        "android_client_info": {
+          "package_name": "com.newsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGZnl32q-kjXuKtQ5X-zzGcU86iGC5330"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
