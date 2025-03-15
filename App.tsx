@@ -1,19 +1,50 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import tw from 'twrnc';
+// import React from 'react';
+// import {ScrollView, View, Dimensions} from 'react-native';
 
-const App = () => {
+// import Interest1 from './screens/Interests1';
+// import NewsPage from './screens/NewsPage';
+// import Start from './screens/Start';
+
+// const {height} = Dimensions.get('window');
+
+// const App = () => {
+//   return (
+//     <ScrollView
+//       pagingEnabled // Enables smooth full-screen scrolling
+//       showsVerticalScrollIndicator={false} // Hides the scroll bar
+//     >
+//       <View style={{minHeight: height}}>
+//         <Start />
+//       </View>
+//       <View style={{minHeight: height}}>
+//         <Interest1 />
+//       </View>
+//       <View style={{minHeight: height}}>
+//         <NewsPage />
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// export default App;
+
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {enableScreens} from 'react-native-screens';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Start from './screens/Start';
+import Interests1 from './screens/Interests1';
+
+const Stack = createNativeStackNavigator();
+enableScreens();
+export default function App() {
   return (
-    <View style={tw`flex-1 bg-gray-100 justify-center items-center px-4`}>
-      <Text style={tw`text-2xl font-bold text-blue-600 text-center`}>
-        Hello, Welcome to Today's News! 🚀
-      </Text>
-
-      <TouchableOpacity style={tw`mt-5 px-6 py-3 bg-blue-500 rounded-lg`}>
-        <Text style={tw`text-white text-lg font-semibold`}>Get Started</Text>
-      </TouchableOpacity>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Interest1" component={Interests1} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-
-export default App;
+}
