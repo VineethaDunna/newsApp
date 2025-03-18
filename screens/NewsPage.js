@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 // import {AntDesign, MaterialIcons, Ionicons} from '@expo/vector-icons'; // Expo icons
+import {useNavigation} from '@react-navigation/native';
 import tw from 'twrnc';
 
 const NewsPage = () => {

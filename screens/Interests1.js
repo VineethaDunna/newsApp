@@ -27,7 +27,7 @@ const Interest1 = ({navigation}) => {
   };
 
   return (
-    <View style={tw`flex-1 bg-green-200 px-6 pt-16`}>
+    <View style={tw`flex-1  px-6 pt-16`}>
       <Text style={tw`text-lg font-semibold text-center text-gray-800 mb-8`}>
         Please Select Your Interest
       </Text>
@@ -59,13 +59,13 @@ const Interest1 = ({navigation}) => {
 
       {/* Footer Buttons */}
       <View style={tw`flex-row justify-between mt-auto mb-8`}>
-        <TouchableOpacity onPress={() => navigation.navigate('#')}>
+        <TouchableOpacity onPress={() => navigation.navigate('newspage')}>
           <Text style={tw`text-gray-500 text-lg`}>Skip</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           disabled={selectedInterests.length === 0}
-          onPress={() => navigation.navigate('NextScreen', {selectedInterests})}
+          onPress={() => navigation.navigate('newspage', {selectedInterests})}
           style={tw`px-8 py-3 rounded-full ${
             selectedInterests.length ? 'bg-black' : 'bg-gray-400'
           }`}>
