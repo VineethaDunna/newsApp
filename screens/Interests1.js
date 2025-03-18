@@ -27,7 +27,7 @@ const Interest1 = ({navigation}) => {
   };
 
   return (
-    <View style={tw`flex-1 bg-blue-100 px-6 pt-16`}>
+    <View style={tw`flex-1 bg-green-200 px-6 pt-16`}>
       <Text style={tw`text-lg font-semibold text-center text-gray-800 mb-8`}>
         Please Select Your Interest
       </Text>
