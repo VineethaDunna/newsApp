@@ -83,7 +83,7 @@ const NewsScreen = () => {
   };
 
   return (
-    <View style={tw`flex-1 bg-gray-100`}>
+    <View style={tw`flex-1 bg-cyan-100  bg-opacity-50`}>
       <FlatList
         data={newsData}
         keyExtractor={item => item.id}
@@ -105,7 +105,11 @@ const NewsScreen = () => {
         })}
         showsVerticalScrollIndicator={false}
       />
-      {globalFooterVisible && <Footer />}
+      {globalFooterVisible && (
+        <>
+          <Footer />
+        </>
+      )}
     </View>
   );
 };

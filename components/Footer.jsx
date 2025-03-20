@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import tw from 'twrnc';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
@@ -21,73 +21,41 @@ const Footer = () => {
 
   return (
     <View
-      style={tw`flex-row justify-around items-center bg-black rounded-lg shadow-lg py-5`}>
-      {/* Home Icon */}
-      <TouchableOpacity
-        onPress={() => handleTabPress('newsScreen')}
-        style={tw`flex items-center`}>
+      style={tw`flex-row justify-around items-center bg-black rounded-lg shadow-lg py-4 absolute bottom-0 left-0 right-0 z-10`}>
+      {/* Home */}
+      <TouchableOpacity onPress={() => handleTabPress('newsScreen')}>
         <FontAwesomeIcon
           icon={faHome}
-          size={24}
+          size={28}
           color={activeTab === 'Home' ? 'white' : 'gray'}
         />
-        {/* <Text
-          style={tw`${
-            activeTab === 'Home' ? 'text-blue-500' : 'text-gray-500'
-          } text-xs`}>
-          Home
-        </Text> */}
       </TouchableOpacity>
 
-      {/* Search Icon */}
-      <TouchableOpacity
-        onPress={() => handleTabPress('Search')}
-        style={tw`flex items-center`}>
+      {/* Search */}
+      <TouchableOpacity onPress={() => handleTabPress('search')}>
         <FontAwesomeIcon
           icon={faSearch}
-          size={24}
-          color={activeTab === 'Search' ? 'white' : 'gray'}
+          size={28}
+          color={activeTab === 'search' ? 'white' : 'gray'}
         />
-        {/* <Text
-          style={tw`${
-            activeTab === 'Search' ? 'text-blue-500' : 'text-gray-500'
-          } text-xs`}>
-          Search
-        </Text> */}
       </TouchableOpacity>
 
-      {/* Videos Icon */}
-      <TouchableOpacity
-        onPress={() => handleTabPress('trendTopics')}
-        style={tw`flex items-center`}>
+      {/* Videos */}
+      <TouchableOpacity onPress={() => handleTabPress('videoScreen')}>
         <FontAwesomeIcon
           icon={faVideo}
-          size={24}
-          color={activeTab === 'Videos' ? 'white' : 'gray'}
+          size={28}
+          color={activeTab === 'videoScreen' ? 'white' : 'gray'}
         />
-        {/* <Text
-          style={tw`${
-            activeTab === 'Videos' ? 'text-blue-500' : 'text-gray-500'
-          } text-xs`}>
-          Videos
-        </Text> */}
       </TouchableOpacity>
 
-      {/* Profile Icon */}
-      <TouchableOpacity
-        onPress={() => handleTabPress('Profile')}
-        style={tw`flex items-center`}>
+      {/* Profile */}
+      <TouchableOpacity onPress={() => handleTabPress('profile')}>
         <FontAwesomeIcon
           icon={faUser}
-          size={24}
-          color={activeTab === 'Profile' ? 'white' : 'gray'}
+          size={28}
+          color={activeTab === 'trendTopics' ? 'white' : 'gray'}
         />
-        {/* <Text
-          style={tw`${
-            activeTab === 'Profile' ? 'text-blue-500' : 'text-gray-500'
-          } text-xs`}>
-          Profile
-        </Text> */}
       </TouchableOpacity>
     </View>
   );

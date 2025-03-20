@@ -20,7 +20,7 @@ import {
 const {height} = Dimensions.get('window');
 
 const NewsCard = ({item, globalFooterVisible, toggleFooter}) => {
-  const [likes, setLikes] = useState(1200);
+  const [likes, setLikes] = useState(120);
   const [comments] = useState(699);
   const [shares] = useState(800);
   const [bookmarked, setBookmarked] = useState(false);
@@ -37,7 +37,7 @@ const NewsCard = ({item, globalFooterVisible, toggleFooter}) => {
     <TouchableWithoutFeedback onPress={toggleFooter}>
       <View
         style={[
-          tw`bg-white rounded-2xl pt-8 justify-between shadow-lg overflow-hidden`,
+          tw`bg-cyan-100 bg-opacity-50 rounded-2xl pt-10 justify-between n`,
           {height},
         ]}>
         {/* Image Section */}

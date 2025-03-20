@@ -1,19 +1,9 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import tw from 'twrnc';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {faAnglesLeft} from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
-
-const {height} = Dimensions.get('window');
 
 const topics = [
   {
@@ -58,38 +48,34 @@ const topics = [
   },
 ];
 
-// Render each topic card
-const TopicCard = ({topic, navigation}) => {
-  return (
-    <View style={tw`bg-gray-800 p-4 rounded-2xl mb-5 shadow-lg`}>
-      {/* Images Section */}
+const TopicCard = ({topic, navigation}) => (
+  <TouchableOpacity onPress={() => navigation.navigate('newsScreen')}>
+    <View style={tw`bg-gray-800 m-4 mt-0 gap-4 p-3 rounded-2xl mb-5 shadow-lg`}>
       <View style={tw`flex-row justify-between`}>
         {topic.images.map((image, index) => (
           <Image
             key={index}
             source={{uri: image}}
-            style={tw`w-20 h-20 rounded-lg mr-2`}
+            style={tw`w-25 h-20 rounded-lg mr-2`}
             resizeMode="cover"
           />
         ))}
       </View>
 
-      {/* Title & Stories */}
-      <View style={tw`mt-4`}>
-        <Text style={tw`text-white text-lg font-bold`}>{topic.title}</Text>
+      <View style={tw`mt-4 flex-row justify-between items-center `}>
+        <Text style={tw`text-white text-lg font-semibold`}>{topic.title}</Text>
         <Text style={tw`text-gray-400 text-sm`}>{topic.stories}</Text>
       </View>
     </View>
-  );
-};
+  </TouchableOpacity>
+);
 
 const TrendingTopicsScreen = ({navigation}) => {
   return (
-    <View style={tw`flex-1 bg-blue-100`}>
-      {/* Header */}
+    <View style={tw`flex-1 pt-10 bg-blue-100`}>
       <View style={tw`flex-row items-center justify-between p-4`}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <FontAwesomeIcon icon={faArrowLeft} size={24} color="black" />
+          <FontAwesomeIcon icon={faAnglesLeft} size={24} color="black" />
         </TouchableOpacity>
         <Text style={tw`text-2xl font-bold text-black`}>Trending Topics</Text>
         <View style={tw`w-10`} />

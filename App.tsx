@@ -6,8 +6,11 @@ import {StatusBar} from 'react-native';
 import Start from './screens/Start';
 import Interests1 from './screens/Interests1';
 import TrendingTopics from './screens/TrendingTopics';
-import NewsScreen from './screens/NewsScreen'; // Main news screen
 import Interests2 from './screens/Interests2';
+import NewsScreen from './screens/NewsScreen';
+import SearchScreen from './screens/SearchScreen';
+import VideoScreen from './screens/VideoScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +52,23 @@ export default function App() {
             name="newsScreen"
             component={NewsScreen}
             options={{headerShown: false}} // Initially hidden
+          />
+
+          <Stack.Screen
+            name="videoScreen"
+            component={VideoScreen}
+            options={{headerShown: false}}
+          />
+
+          <Stack.Screen
+            name="search"
+            component={SearchScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="profile"
+            component={ProfileScreen}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>

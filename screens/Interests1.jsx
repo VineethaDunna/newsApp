@@ -62,7 +62,7 @@ const Interest1 = ({navigation}) => {
           <TouchableOpacity
             disabled={selectedInterests.length === 0}
             onPress={() =>
-              navigation.navigate('Interests2', {selectedInterests})
+              navigation.navigate('interests2', {selectedInterests})
             }
             style={tw`px-8 py-3 rounded-full ${
               selectedInterests.length ? 'bg-gray-800' : 'bg-gray-400'
