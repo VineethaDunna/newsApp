@@ -1,78 +1,184 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
-import tw from 'twrnc';
+import React, {useState, useRef} from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Animated,
+  Pressable,
+} from 'react-native';
 
 const interests = [
   'Automobile',
   'Business',
-  'Education',
-  'Entertainment',
   'Miscellaneous',
   'National',
-  'International',
+  'Politics',
+  'Science',
 ];
 
 const Interest1 = ({navigation}) => {
   const [selectedInterests, setSelectedInterests] = useState([]);
+  const scaleAnims = useRef(
+    interests.reduce((acc, item) => {
+      acc[item] = new Animated.Value(1); // Scale animation for each item
+      return acc;
+    }, {}),
+  ).current;
 
   const toggleSelection = item => {
+    const isSelected = selectedInterests.includes(item);
     setSelectedInterests(prev =>
-      prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item],
+      isSelected ? prev.filter(i => i !== item) : [...prev, item],
     );
+
+    // Individual item animation (scale & fade)
+    Animated.sequence([
+      Animated.timing(scaleAnims[item], {
+        toValue: 1.05,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+      Animated.timing(scaleAnims[item], {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
   };
 
   return (
-    <View style={tw`flex-1 bg-cyan-100 px-6 pt-16`}>
-      <View style={tw` flex-1 justify-between items-between`}>
-        <Text style={tw`text-lg font-semibold text-center text-gray-800 mb-8`}>
-          Please Select Your Interest
-        </Text>
-        <View style={tw`flex top-10 bottom-10 mt-5`}>
-          <FlatList
-            data={interests}
-            keyExtractor={item => item}
-            numColumns={2}
-            columnWrapperStyle={tw` content-between justify-between mb-4`}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => toggleSelection(item)}
-                style={tw`px-5 py-3 rounded-full shadow-md ${
-                  selectedInterests.includes(item)
-                    ? 'bg-gray-700 text-white'
-                    : 'bg-white'
-                }`}>
-                <Text
-                  style={tw`text-lg font-semibold ${
-                    selectedInterests.includes(item)
-                      ? 'text-white'
-                      : 'text-gray-700'
-                  }`}>
-                  {item}
-                </Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-        {/* Footer Buttons */}
-        <View style={tw`flex-row justify-between content-between mt-auto mb-8`}>
-          <TouchableOpacity onPress={() => navigation.navigate('interests2')}>
-            <Text style={tw`text-gray-500 text-lg underline`}>Skip</Text>
-          </TouchableOpacity>
+    <View style={styles.container}>
+      {/* Title Section */}
+      <View>
+        <Text style={styles.title}>Please Select Your Interest</Text>
+      </View>
 
-          <TouchableOpacity
-            disabled={selectedInterests.length === 0}
-            onPress={() =>
-              navigation.navigate('interests2', {selectedInterests})
-            }
-            style={tw`px-8 py-3 rounded-full ${
-              selectedInterests.length ? 'bg-gray-800' : 'bg-gray-400'
-            }`}>
-            <Text style={tw`text-white text-lg font-semibold`}>Next</Text>
-          </TouchableOpacity>
-        </View>
+      {/* FlatList Section */}
+      <FlatList
+        data={interests}
+        keyExtractor={item => item}
+        numColumns={2}
+        contentContainerStyle={styles.flatListContainer}
+        columnWrapperStyle={styles.columnWrapper}
+        renderItem={({item}) => (
+          <Animated.View
+            style={[
+              styles.shadowWrapper,
+              selectedInterests.includes(item) && styles.noShadow, // Remove shadow when selected
+              {transform: [{scale: scaleAnims[item]}]},
+            ]}>
+            <Pressable
+              onPress={() => toggleSelection(item)}
+              style={[
+                styles.interestBtn,
+                selectedInterests.includes(item) && styles.selected,
+              ]}>
+              <Text
+                style={[
+                  styles.interestText,
+                  selectedInterests.includes(item) && styles.textSelected,
+                ]}>
+                {item}
+              </Text>
+            </Pressable>
+          </Animated.View>
+        )}
+      />
+
+      {/* Footer Section */}
+      <View style={styles.footer}>
+        <Pressable onPress={() => navigation.navigate('interests2')}>
+          <Text style={styles.skipLink}>Skip</Text>
+        </Pressable>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  /* Main Container */
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#c9f2ff',
+    paddingHorizontal: 16,
+    paddingVertical: 32,
+  },
+
+  /* Title Section */
+  title: {
+    fontFamily: 'Poppins',
+    fontWeight: '700',
+    fontSize: 20,
+    lineHeight: 24,
+    color: '#2c2c2c',
+    textAlign: 'center',
+    marginBottom: 24,
+    top: 30,
+  },
+
+  /* FlatList Wrapper */
+  flatListContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  columnWrapper: {
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+
+  /* Shadow Wrapper (outer shadow only) */
+  shadowWrapper: {
+    borderRadius: 40,
+    margin: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+  },
+
+  /* Interest Button */
+  interestBtn: {
+    width: 156,
+    height: 48,
+    borderRadius: 40,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 7,
+  },
+
+  /* Selected State */
+  selected: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fill color when selected
+    elevation: 0,
+  },
+
+  interestText: {
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    color: '#2c2c2c',
+  },
+
+  textSelected: {
+    color: 'white',
+  },
+
+  /* Footer Section */
+  footer: {
+    marginBottom: 32,
+  },
+
+  skipLink: {
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    color: '#2c2c2c',
+    textDecorationLine: 'underline',
+  },
+});
 
 export default Interest1;

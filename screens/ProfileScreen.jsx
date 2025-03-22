@@ -68,7 +68,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View style={tw`flex-1 bg-cyan-100 pt-10`}>
+    <View style={tw`flex-1 bg-white pt-10`}>
       {/* Dynamic Status Bar */}
       <StatusBar
         barStyle={isLoggedIn ? 'dark-content' : 'light-content'}
@@ -116,11 +116,15 @@ const ProfileScreen = () => {
         </View>
 
         {/* Options Section */}
-        <View style={tw`p-6 h-[100%] `}>
+        <View
+          style={[
+            tw`p-6 bg-cyan-100 bg-opacity-50 rounded-t-3xl`,
+            {height: height * 0.8}, // Set height to 80% of the screen height
+          ]}>
           {/* My Bookmarks */}
           <TouchableOpacity style={tw`flex-row items-center mb-5`}>
             <View
-              style={tw`bg-white p-3 rounded-full shadow-md border border-gray-200`}>
+              style={tw`bg-white p-3 mt-3 rounded-full shadow-md border border-gray-200`}>
               <FontAwesomeIcon icon={faBookmark} size={20} color="#4F46E5" />
             </View>
             <Text style={tw`ml-4 text-gray-800 text-lg`}>My Bookmark</Text>
