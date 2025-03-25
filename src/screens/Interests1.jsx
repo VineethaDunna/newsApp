@@ -7,7 +7,7 @@ import {
   Animated,
   Pressable,
 } from 'react-native';
-
+import LinearGradient from 'react-native-linear-gradient';
 const interests = [
   'Automobile',
   'Business',
@@ -48,51 +48,53 @@ const Interest1 = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Title Section */}
-      <View>
-        <Text style={styles.title}>Please Select Your Interest</Text>
-      </View>
+    <LinearGradient colors={['white', '#c7f2ff']} style={styles.container}>
+      <View style={styles.container}>
+        {/* Title Section */}
+        <View>
+          <Text style={styles.title}>Please Select Your Interest</Text>
+        </View>
 
-      {/* FlatList Section */}
-      <FlatList
-        data={interests}
-        keyExtractor={item => item}
-        numColumns={2}
-        contentContainerStyle={styles.flatListContainer}
-        columnWrapperStyle={styles.columnWrapper}
-        renderItem={({item}) => (
-          <Animated.View
-            style={[
-              styles.shadowWrapper,
-              selectedInterests.includes(item) && styles.noShadow, // Remove shadow when selected
-              {transform: [{scale: scaleAnims[item]}]},
-            ]}>
-            <Pressable
-              onPress={() => toggleSelection(item)}
+        {/* FlatList Section */}
+        <FlatList
+          data={interests}
+          keyExtractor={item => item}
+          numColumns={2}
+          contentContainerStyle={styles.flatListContainer}
+          columnWrapperStyle={styles.columnWrapper}
+          renderItem={({item}) => (
+            <Animated.View
               style={[
-                styles.interestBtn,
-                selectedInterests.includes(item) && styles.selected,
+                styles.shadowWrapper,
+                selectedInterests.includes(item) && styles.noShadow, // Remove shadow when selected
+                {transform: [{scale: scaleAnims[item]}]},
               ]}>
-              <Text
+              <Pressable
+                onPress={() => toggleSelection(item)}
                 style={[
-                  styles.interestText,
-                  selectedInterests.includes(item) && styles.textSelected,
+                  styles.interestBtn,
+                  selectedInterests.includes(item) && styles.selected,
                 ]}>
-                {item}
-              </Text>
-            </Pressable>
-          </Animated.View>
-        )}
-      />
+                <Text
+                  style={[
+                    styles.interestText,
+                    selectedInterests.includes(item) && styles.textSelected,
+                  ]}>
+                  {item}
+                </Text>
+              </Pressable>
+            </Animated.View>
+          )}
+        />
 
-      {/* Footer Section */}
-      <View style={styles.footer}>
-        <Pressable onPress={() => navigation.navigate('interests2')}>
-          <Text style={styles.skipLink}>Skip</Text>
-        </Pressable>
+        {/* Footer Section */}
+        <View style={styles.footer}>
+          <Pressable onPress={() => navigation.navigate('newsScreen')}>
+            <Text style={styles.skipLink}>Skip</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -102,9 +104,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#c9f2ff',
-    paddingHorizontal: 16,
-    paddingVertical: 32,
   },
 
   /* Title Section */
@@ -116,7 +115,7 @@ const styles = StyleSheet.create({
     color: '#2c2c2c',
     textAlign: 'center',
     marginBottom: 24,
-    top: 30,
+    top: 60,
   },
 
   /* FlatList Wrapper */

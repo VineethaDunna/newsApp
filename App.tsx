@@ -4,14 +4,15 @@ import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
 
 // Screens Import
-import Start from './screens/Start';
-import Interests1 from './screens/Interests1';
-import TrendingTopics from './screens/TrendingTopics';
-import Interests2 from './screens/Interests2';
-import NewsScreen from './screens/NewsScreen';
-import SearchScreen from './screens/SearchScreen';
-import VideoScreen from './screens/VideoScreen';
-import ProfileScreen from './screens/ProfileScreen';
+import Start from './src/screens/Start';
+import Interests1 from './src/screens/Interests1';
+import Interests2 from './src/screens/Interests2';
+import NewsScreen from './src/screens/NewsScreen';
+import SearchScreen from './src/screens/SearchScreen';
+import VideoScreen from './src/screens/VideoScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import TrendingScreen from './src/screens/TrendingScreen';
+import Bookmark from './src/screens/Bookmark';
 
 const Stack = createStackNavigator();
 
@@ -35,11 +36,12 @@ export default function App() {
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="interests1" component={Interests1} />
           <Stack.Screen name="interests2" component={Interests2} />
-          <Stack.Screen name="trendTopics" component={TrendingTopics} />
+          <Stack.Screen name="trendScreen" component={TrendingScreen} />
           <Stack.Screen name="newsScreen" component={NewsScreen} />
           <Stack.Screen name="videoScreen" component={VideoScreen} />
           <Stack.Screen name="search" component={SearchScreen} />
           <Stack.Screen name="profile" component={ProfileScreen} />
+          <Stack.Screen name="bookmark" component={Bookmark} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
