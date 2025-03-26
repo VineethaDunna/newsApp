@@ -4,7 +4,8 @@ import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 import tw from 'twrnc';
 import NewsCard from '../components/NewsCard';
-import {FlashList} from '@shopify/flash-list'; // Use FlashList for better performance
+import {FlashList} from '@shopify/flash-list';
+import LoadingCard from '../components/LoadingCard';
 
 const {height} = Dimensions.get('window');
 
@@ -69,7 +70,7 @@ const NewsScreen = () => {
       {/* ✅ Apply flex: 1 to LinearGradient */}
       <LinearGradient colors={['white', '#c7f2ff']} style={{flex: 1}}>
         {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <LoadingCard />
         ) : (
           <FlashList
             data={newsData}

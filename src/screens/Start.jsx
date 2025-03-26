@@ -9,9 +9,7 @@ const Start = () => {
   return (
     <View style={tw`flex-1 bg-cyan-100`}>
       {/* Background Overlay */}
-      <View
-        style={tw`absolute top-0 left-0 right-0 bottom-0  opacity-30`}
-      />
+      <View style={tw`absolute top-0 left-0 right-0 bottom-0  opacity-30`} />
 
       {/* Image */}
       <Image
@@ -31,7 +29,7 @@ const Start = () => {
         {/* Navigation Button */}
         <TouchableOpacity
           style={tw`mt-5 px-6 py-3 bg-sky-500 rounded-lg shadow-lg self-center`}
-          onPress={() => navigation.navigate('interests1')}>
+          onPress={() => navigation.navigate('interest')}>
           <Text style={tw`text-white text-lg font-bold`}>Get Started</Text>
         </TouchableOpacity>
       </View>

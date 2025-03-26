@@ -21,6 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {useNavigation} from '@react-navigation/native'; // ✅ Import navigation
 import Footer from '../components/Footer';
+import LoadingCard from '../components/LoadingCard';
 
 const TrendingScreen = () => {
   const [newsData, setNewsData] = useState([]);
@@ -207,11 +208,7 @@ const TrendingScreen = () => {
 
         {/* News Cards */}
         {loading ? (
-          <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            style={styles.loader}
-          />
+          <LoadingCard />
         ) : (
           <FlatList
             data={newsData}
@@ -308,11 +305,9 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: '#f8f8f8',
     borderRadius: 8,
-    margin: 15,
-    padding: 10,
-    elevation: 3,
+    margin: 10,
+    padding: 5,
   },
   image: {
     width: 100,
@@ -362,7 +357,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   activeDropdownItem: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#01bef9',
     color: 'white',
   },
   dropdownText: {

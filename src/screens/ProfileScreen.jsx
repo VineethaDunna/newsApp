@@ -22,6 +22,7 @@ import {
   faMoon,
   faTv,
   faGlobe,
+  faArrowTrendUp,
 } from '@fortawesome/free-solid-svg-icons';
 import {useNavigation} from '@react-navigation/native'; // ✅ Import navigation hook
 
@@ -121,11 +122,11 @@ const ProfileScreen = () => {
             ]}>
             {/* My Bookmarks */}
             <Pressable
-              style={tw`flex-row items-center p-4`}
+              style={tw`flex-row items-center mb-5`}
               onPress={() => navigation.navigate('bookmark')} // ✅ Navigate to Bookmark screen
             >
-              <View style={tw`bg-blue-100 p-3 rounded-lg`}>
-                <FontAwesomeIcon icon={faBookmark} size={20} color="#01bef9" />
+              <View style={styles.iconWrapper}>
+                <FontAwesomeIcon icon={faBookmark} size={22} color="#01bef9" />
               </View>
               <Text style={tw`ml-4 text-lg text-gray-800`}>My Bookmark</Text>
             </Pressable>
@@ -136,7 +137,7 @@ const ProfileScreen = () => {
               onPress={toggleDropdown}>
               <View style={tw`flex-row items-center`}>
                 <View style={styles.iconWrapper}>
-                  <FontAwesomeIcon icon={faGlobe} size={20} color="#01bef9" />
+                  <FontAwesomeIcon icon={faGlobe} size={24} color="#01bef9" />
                 </View>
                 <Text style={tw`ml-4 text-gray-800 text-lg`}>Language</Text>
               </View>
@@ -182,13 +183,32 @@ const ProfileScreen = () => {
               </TouchableOpacity>
             </Modal>
 
-            {/* Interests */}
-            <TouchableOpacity style={tw`flex-row items-center mb-5`}>
+            {/* My Bookmarks */}
+            <Pressable
+              style={tw`flex-row items-center mb-5`}
+              onPress={() => navigation.navigate('trend')} // ✅ Navigate to Bookmark screen
+            >
               <View style={styles.iconWrapper}>
-                <FontAwesomeIcon icon={faHeart} size={18} color="#01bef9" />
+                <FontAwesomeIcon
+                  icon={faArrowTrendUp}
+                  size={24}
+                  color="#01bef9"
+                />
               </View>
-              <Text style={tw`ml-4 text-gray-800 text-lg`}>Interests</Text>
-            </TouchableOpacity>
+              <Text style={tw`ml-4 text-lg text-gray-800`}>
+                Trending Topics
+              </Text>
+            </Pressable>
+
+            {/* Interests */}
+            <Pressable
+              style={tw`flex-row items-center mb-5`}
+              onPress={() => navigation.navigate('interest')}>
+              <View style={styles.iconWrapper}>
+                <FontAwesomeIcon icon={faHeart} size={24} color="#01bef9" />
+              </View>
+              <Text style={tw`ml-4 text-lg text-gray-800`}>Interests</Text>
+            </Pressable>
 
             {/* Night Mode */}
             <TouchableOpacity
@@ -196,7 +216,7 @@ const ProfileScreen = () => {
               style={tw`flex-row justify-between items-center mb-5`}>
               <View style={tw`flex-row items-center`}>
                 <View style={styles.iconWrapper}>
-                  <FontAwesomeIcon icon={faMoon} size={20} color="#01bef9" />
+                  <FontAwesomeIcon icon={faMoon} size={24} color="#01bef9" />
                 </View>
                 <Text style={tw`ml-4 text-gray-800 text-lg`}>Night Mode</Text>
               </View>
@@ -222,7 +242,7 @@ const ProfileScreen = () => {
               style={tw`flex-row justify-between items-center`}>
               <View style={tw`flex-row items-center`}>
                 <View style={styles.iconWrapper}>
-                  <FontAwesomeIcon icon={faTv} size={20} color="#01bef9" />
+                  <FontAwesomeIcon icon={faTv} size={24} color="#01bef9" />
                 </View>
                 <Text style={tw`ml-4 text-gray-800 text-lg`}>HD Media</Text>
               </View>

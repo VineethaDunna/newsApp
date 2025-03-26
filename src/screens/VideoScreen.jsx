@@ -5,6 +5,7 @@ import axios from 'axios';
 import tw from 'twrnc';
 import Footer from '../components/Footer';
 import VideoCard from '../components/VideoCard';
+import LoadingCard from '../components/LoadingCard';
 
 const {height} = Dimensions.get('window');
 
@@ -52,7 +53,7 @@ const VideoScreen = () => {
     <View style={tw`flex-1`}>
       <LinearGradient colors={['white', '#c7f2ff']} style={tw`flex-1`}>
         {loading ? (
-          <ActivityIndicator size="large" color="#ffffff" style={tw`mt-20`} />
+          <LoadingCard />
         ) : (
           <FlatList
             data={videos}
