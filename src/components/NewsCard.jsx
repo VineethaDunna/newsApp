@@ -270,60 +270,68 @@ const NewsCard = ({item}) => {
             transparent={true}
             visible={isCommentModalVisible}
             onRequestClose={() => setIsCommentModalVisible(false)}>
-            <View style={styles.modalContainer}>
-              <View style={styles.commentsBox}>
-                <Text style={styles.modalHeader}>
-                  Comments ({commentList.length})
-                </Text>
+            <TouchableWithoutFeedback
+              onPress={() => setIsCommentModalVisible(false)}>
+              <View style={styles.modalContainer}>
+                <TouchableWithoutFeedback>
+                  <View style={styles.commentsBox}>
+                    <Text style={styles.modalHeader}>
+                      Comments ({commentList.length})
+                    </Text>
 
-                {/* Comments List */}
-                <ScrollView style={{maxHeight: height * 0.3}}>
-                  {commentList.map(comment => (
-                    <View key={comment.id} style={styles.commentContainer}>
-                      <View style={tw`items-center pb-2`}>
-                        <Image
-                          source={{
-                            uri: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
-                          }}
-                          style={styles.profileImage}
-                        />
-                        {/* Vertical Line */}
-                        <View style={styles.verticalLine} />
-                      </View>
-                      <View style={styles.commentContent}>
-                        <View style={styles.commentHeader}>
-                          <Text style={styles.commentName}>{comment.name}</Text>
-                          <Text style={styles.commentTime}>{comment.time}</Text>
+                    {/* Comments List */}
+                    <ScrollView style={{maxHeight: height * 0.3}}>
+                      {commentList.map(comment => (
+                        <View key={comment.id} style={styles.commentContainer}>
+                          <View style={tw`items-center pb-2`}>
+                            <Image
+                              source={{
+                                uri: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
+                              }}
+                              style={styles.profileImage}
+                            />
+                            <View style={styles.verticalLine} />
+                          </View>
+                          <View style={styles.commentContent}>
+                            <View style={styles.commentHeader}>
+                              <Text style={styles.commentName}>
+                                {comment.name}
+                              </Text>
+                              <Text style={styles.commentTime}>
+                                {comment.time}
+                              </Text>
+                            </View>
+
+                            <Text style={styles.commentText}>
+                              {comment.comment}
+                            </Text>
+                          </View>
                         </View>
+                      ))}
+                    </ScrollView>
 
-                        <Text style={styles.commentText}>
-                          {comment.comment}
-                        </Text>
-                      </View>
+                    {/* Add Comment */}
+                    <View style={styles.addCommentContainer}>
+                      <TextInput
+                        placeholder="Add your comment"
+                        value={newComment}
+                        onChangeText={setNewComment}
+                        style={styles.commentInput}
+                      />
+                      <TouchableOpacity
+                        onPress={handleAddComment}
+                        style={styles.sendButton}>
+                        <FontAwesomeIcon
+                          icon={faPaperPlane}
+                          size={20}
+                          color="#3c4852"
+                        />
+                      </TouchableOpacity>
                     </View>
-                  ))}
-                </ScrollView>
-
-                {/* Add Comment */}
-                <View style={styles.addCommentContainer}>
-                  <TextInput
-                    placeholder="Add your comment"
-                    value={newComment}
-                    onChangeText={setNewComment}
-                    style={styles.commentInput}
-                  />
-                  <TouchableOpacity
-                    onPress={handleAddComment}
-                    style={styles.sendButton}>
-                    <FontAwesomeIcon
-                      icon={faPaperPlane}
-                      size={20}
-                      color="#3c4852"
-                    />
-                  </TouchableOpacity>
-                </View>
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
-            </View>
+            </TouchableWithoutFeedback>
           </Modal>
         </LinearGradient>
       </View>
@@ -518,7 +526,7 @@ const styles = {
   verticalLine: {
     width: 2, // Vertical line thickness
     backgroundColor: 'white', // Line color
-    height: '100%', // Full height of the comment box
+    height: '30%', // Full height of the comment box
     marginRight: 12,
     marginTop: 10,
     marginBottom: 10,
@@ -545,7 +553,7 @@ const styles = {
   },
   commentText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: 'Poppins',
   },
   addCommentContainer: {
