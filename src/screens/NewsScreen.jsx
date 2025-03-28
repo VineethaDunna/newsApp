@@ -17,7 +17,7 @@ const NewsScreen = () => {
     try {
       const urls = [
         'https://content.guardianapis.com/search?api-key=93db34eb-3dba-4c4f-8c68-4ca0dc5d30f7',
-        'https://gnews.io/api/v4/top-headlines?token=345ea6bb2d2ab572b8b4d559b6c9fc8f',
+        // 'https://gnews.io/api/v4/top-headlines?token=345ea6bb2d2ab572b8b4d559b6c9fc8f',
       ];
 
       const [guardian, gnews] = await Promise.all(
@@ -40,18 +40,18 @@ const NewsScreen = () => {
       );
 
       // Format GNews API data
-      const gnewsData = gnews.data.articles.map((item, index) => ({
-        id: `gnews-${index}`,
-        title: item.title,
-        description: item.description || 'No description available',
-        imageUrl: item.image || 'https://via.placeholder.com/300',
-        websiteUrl: item.url,
-        publishedDate: item.publishedAt,
-        source: item.source.name,
-      }));
+      // const gnewsData = gnews.data.articles.map((item, index) => ({
+      //   id: `gnews-${index}`,
+      //   title: item.title,
+      //   description: item.description || 'No description available',
+      //   imageUrl: item.image || 'https://via.placeholder.com/300',
+      //   websiteUrl: item.url,
+      //   publishedDate: item.publishedAt,
+      //   source: item.source.name,
+      // }));
 
       // Combine all news into one array
-      const newsList = [...gnewsData, ...guardianData];
+      const newsList = [ ...guardianData];
 
       setNewsData(newsList);
       setLoading(false);

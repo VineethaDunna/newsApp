@@ -25,13 +25,17 @@ import {
   faArrowTrendUp,
 } from '@fortawesome/free-solid-svg-icons';
 import {useNavigation} from '@react-navigation/native'; // ✅ Import navigation hook
+import LoginScreen from './LoginScreen'; // ✅ Import the LoginScreen
 
 import Footer from '../components/Footer';
+import LoginOtpScreen from './LoginOtpScreen';
 
 const {width, height} = Dimensions.get('window');
 
 const ProfileScreen = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoginVisible, setIsLoginVisible] = useState(false);
+  const [isOtpVisible, setIsOtpVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const [showDropdown, setShowDropdown] = useState(false);
   const [isNightMode, setIsNightMode] = useState(false);
@@ -55,13 +59,17 @@ const ProfileScreen = () => {
     {name: 'Turkish', native: 'Türkçe'},
     {name: 'Dutch', native: 'Nederlands'},
   ];
-
+  const handleOpenLogin = () => {
+    setIsLoginVisible(true);
+  };
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    setIsLoggedIn(false); // Reset login state
+    setIsLoginVisible(false); // Hide login modal
+    setIsOtpVisible(false); // Hide OTP modal
   };
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
+  const handleCloseLogin = () => {
+    setIsLoginVisible(false);
   };
 
   const toggleDropdown = () => {
@@ -79,7 +87,9 @@ const ProfileScreen = () => {
             <View style={styles.imageWrapper}>
               <Image
                 source={{
-                  uri: 'https://i.pinimg.com/736x/a2/b3/a2/a2b3a2ce88f2ee0a451ad6c35060cba8.jpg',
+                  uri: isLoggedIn
+                    ? 'https://i.pinimg.com/736x/a2/b3/a2/a2b3a2ce88f2ee0a451ad6c35060cba8.jpg'
+                    : 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
                 }}
                 style={[styles.profileImage, {opacity: isLoggedIn ? 1 : 0.5}]}
                 resizeMode="cover"
@@ -96,7 +106,7 @@ const ProfileScreen = () => {
                 {isLoggedIn ? 'Vishal Juneja' : 'Guest User'}
               </Text>
               <TouchableOpacity
-                onPress={isLoggedIn ? handleLogout : handleLogin}
+                onPress={isLoggedIn ? handleLogout : handleOpenLogin}
                 style={[
                   styles.authButton,
                   isLoggedIn ? styles.logoutButton : styles.loginButton,
@@ -267,6 +277,22 @@ const ProfileScreen = () => {
       </ScrollView>
 
       <Footer />
+      {/* Login Modal */}
+      <Modal visible={isLoginVisible} animationType="slide" transparent={true}>
+        <LoginScreen
+          setIsOtpVisible={setIsOtpVisible} // ✅ Pass OTP state handler
+          setIsLogin={setIsLoggedIn} // ✅ Pass login handler
+          onClose={handleCloseLogin}
+        />
+      </Modal>
+
+      {/* OTP Modal */}
+      <Modal visible={isOtpVisible} animationType="slide" transparent={true}>
+        <LoginOtpScreen
+          setIsOtpVisible={setIsOtpVisible} // ✅ Pass OTP handler
+          setIsLogin={setIsLoggedIn} // ✅ Set logged in state on OTP success
+        />
+      </Modal>
     </View>
   );
 };
@@ -356,5 +382,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     alignItems: 'center',
     color: '#444',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+  },
+  modalBackground: {
+    width: '100%',
+    padding: 20,
+    height: '100%',
+    borderRadius: 16,
   },
 });

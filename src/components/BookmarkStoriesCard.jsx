@@ -17,7 +17,7 @@ const BookmarkStoriesCard = ({story, navigation}) => {
         </View>
         {/* Separator line */}
       </Pressable>
-      <View style={styles.separator} />
+      {/* <View style={styles.separator} /> */}
     </View>
   );
 };
@@ -25,23 +25,22 @@ const BookmarkStoriesCard = ({story, navigation}) => {
 export default BookmarkStoriesCard;
 const styles = StyleSheet.create({
   card: {
-    marginVertical: 5, // Spacing between cards
+    marginVertical: 3, // Spacing between cards
     flexDirection: 'row',
     alignItems: 'center',
   },
   image: {
     width: 100,
-    height: 100,
+    height: '100%',
     borderRadius: 12,
-    marginLeft: 16,
   },
   content: {
     flex: 1,
-    padding: 16,
+    padding: 10,
   },
   title: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: '400',
     color: '#000',
     marginBottom: 8,
   },

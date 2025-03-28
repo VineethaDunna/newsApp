@@ -1,26 +1,29 @@
 import React from 'react';
 import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const BookmarkVideosCard = ({video, navigation}) => {
   return (
     <>
-      <Pressable
-        onPress={() => navigation.navigate('videoScreen')}
-        style={styles.card}>
-        <Image
-          source={{uri: video.thumbnail}}
-          style={styles.image}
-          resizeMode="cover"
-        />
+      <ScrollView>
+        <Pressable
+          onPress={() => navigation.navigate('videoScreen')}
+          style={styles.card}>
+          <Image
+            source={{uri: video.thumbnail}}
+            style={styles.image}
+            resizeMode="cover"
+          />
 
-        <View style={styles.content}>
-          <Text style={styles.desc}>{video.desc}</Text>
-          <Text style={styles.title}>{video.title}</Text>
-        </View>
-      </Pressable>
+          <View style={styles.content}>
+            <Text style={styles.desc}>{video.desc}</Text>
+            <Text style={styles.title}>{video.title}</Text>
+          </View>
+        </Pressable>
 
-      {/* Separator line */}
-      <View style={styles.separator} />
+        {/* Separator line */}
+        {/* <View style={styles.separator} /> */}
+      </ScrollView>
     </>
   );
 };

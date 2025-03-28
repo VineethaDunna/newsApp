@@ -12,6 +12,8 @@ import VideoScreen from './src/screens/VideoScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import TrendingScreen from './src/screens/TrendingScreen';
 import BookmarkScreen from './src/screens/BookmarkScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import LoginOtpScreen from './src/screens/LoginOtpScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +29,7 @@ export default function App() {
 
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="start"
+          initialRouteName="Start"
           screenOptions={{
             headerShown: false,
             ...TransitionPresets.ModalFadeTransition,
@@ -39,6 +41,8 @@ export default function App() {
           <Stack.Screen name="videoScreen" component={VideoScreen} />
           <Stack.Screen name="search" component={SearchScreen} />
           <Stack.Screen name="profile" component={ProfileScreen} />
+          <Stack.Screen name="loginScreen" component={LoginScreen} />
+          <Stack.Screen name="LoginOtp" component={LoginOtpScreen} />
           <Stack.Screen name="bookmark" component={BookmarkScreen} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -5,6 +5,9 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Modal,
+  ScrollView,
+  TextInput,
   TouchableWithoutFeedback,
 } from 'react-native';
 import tw from 'twrnc';
@@ -19,9 +22,12 @@ import {
   faPlus,
   faShare,
   faArrowUp,
+  faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
 // import {faShareFromSquare} from '@fortawesome/free-regular-svg-icons';
 import Footer from './Footer';
+import {text} from '@fortawesome/fontawesome-svg-core';
+import {max, min} from 'moment';
 
 const {height, width} = Dimensions.get('window');
 
@@ -36,6 +42,37 @@ const NewsCard = ({item}) => {
   const [lastTap, setLastTap] = useState(null);
   const [footerVisible, setFooterVisible] = useState(true);
   const [navbarVisible, setNavbarVisible] = useState(false);
+
+  // commentsmodal
+  const [isCommentModalVisible, setIsCommentModalVisible] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  const [commentList, setCommentList] = useState([
+    {
+      id: 1,
+      name: 'Vishal Juneja',
+      time: '2h ago',
+      comment: 'Best app used by me till now for news. Great Design 👍',
+    },
+    {
+      id: 2,
+      name: 'Rohit Joshi',
+      time: '1h ago',
+      comment: 'Must used app. Algorithm is awesome. Design is also nice...',
+    },
+  ]);
+  // Handle adding comments
+  const handleAddComment = () => {
+    if (newComment.trim()) {
+      const newEntry = {
+        id: commentList.length + 1,
+        name: 'You',
+        comment: newComment,
+        time: 'Just now',
+      };
+      setCommentList([newEntry, ...commentList]);
+      setNewComment('');
+    }
+  };
 
   // Toggle Bookmark
   const toggleBookmark = () => setBookmarked(!bookmarked);
@@ -190,9 +227,11 @@ const NewsCard = ({item}) => {
                   </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.footerButton}>
+                <TouchableOpacity
+                  style={tw`flex-row items-center`}
+                  onPress={() => setIsCommentModalVisible(true)}>
                   <FontAwesomeIcon icon={faComment} size={24} color="white" />
-                  <Text style={styles.footerText}>{comments}</Text>
+                  <Text style={tw`ml-2 text-white`}>{comments}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.footerButton}>
@@ -225,6 +264,67 @@ const NewsCard = ({item}) => {
               <Footer />
             </>
           )}
+          {/* Modal for Comments */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={isCommentModalVisible}
+            onRequestClose={() => setIsCommentModalVisible(false)}>
+            <View style={styles.modalContainer}>
+              <View style={styles.commentsBox}>
+                <Text style={styles.modalHeader}>
+                  Comments ({commentList.length})
+                </Text>
+
+                {/* Comments List */}
+                <ScrollView style={{maxHeight: height * 0.3}}>
+                  {commentList.map(comment => (
+                    <View key={comment.id} style={styles.commentContainer}>
+                      <View style={tw`items-center pb-2`}>
+                        <Image
+                          source={{
+                            uri: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
+                          }}
+                          style={styles.profileImage}
+                        />
+                        {/* Vertical Line */}
+                        <View style={styles.verticalLine} />
+                      </View>
+                      <View style={styles.commentContent}>
+                        <View style={styles.commentHeader}>
+                          <Text style={styles.commentName}>{comment.name}</Text>
+                          <Text style={styles.commentTime}>{comment.time}</Text>
+                        </View>
+
+                        <Text style={styles.commentText}>
+                          {comment.comment}
+                        </Text>
+                      </View>
+                    </View>
+                  ))}
+                </ScrollView>
+
+                {/* Add Comment */}
+                <View style={styles.addCommentContainer}>
+                  <TextInput
+                    placeholder="Add your comment"
+                    value={newComment}
+                    onChangeText={setNewComment}
+                    style={styles.commentInput}
+                  />
+                  <TouchableOpacity
+                    onPress={handleAddComment}
+                    style={styles.sendButton}>
+                    <FontAwesomeIcon
+                      icon={faPaperPlane}
+                      size={20}
+                      color="#3c4852"
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </LinearGradient>
       </View>
     </TouchableWithoutFeedback>
@@ -353,5 +453,124 @@ const styles = {
   footerText: {
     color: 'white',
     marginLeft: 8,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  openButton: {
+    padding: 12,
+    backgroundColor: '#007aff',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  openButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    minHeight: height * 0.5,
+  },
+  commentsBox: {
+    backgroundColor: 'rgba(24, 23, 23, 0.8)',
+    borderRadius: 40,
+    margin: 16,
+    padding: 10,
+    color: 'white',
+    overflow: 'hidden', // Prevents overflow from rounded corners
+    backdropFilter: 'blur(50px)', // Adds background blur (web-only)
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5,
+    minHeight: height * 0.46,
+    maxHeight: height * 0.46,
+  },
+  modalHeader: {
+    fontSize: 16,
+    fontFamily: 'Poppins',
+    fontWeight: 600,
+    lineHeight: 18,
+    LetterSpacing: 2,
+    paddingBottom: 10,
+    color: 'white',
+    textAlign: 'center',
+  },
+  commentContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+
+    width: '100%',
+    height: '80',
+    color: 'white',
+  },
+  profileImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 12,
+  },
+  verticalLine: {
+    width: 2, // Vertical line thickness
+    backgroundColor: 'white', // Line color
+    height: '100%', // Full height of the comment box
+    marginRight: 12,
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  commentHeader: {
+    flexDirection: 'row',
+    textAlign: 'center',
+    fontSize: 16,
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  commentName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  commentTime: {
+    fontSize: 14,
+    color: '#aeaeae',
+    fontFamily: 'Poppins',
+    fontWeight: 400,
+    lineHeight: 16,
+    paddingLeft: 10,
+  },
+  commentText: {
+    color: '#fff',
+    fontSize: 16,
+    fontFamily: 'Poppins',
+  },
+  addCommentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16,
+    color: 'white',
+  },
+  commentInput: {
+    flex: 1,
+    borderColor: '#ccc',
+    borderWidth: 2,
+    padding: 12,
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+    margin: 10,
+    marginRight: 0,
+    color: 'white',
+  },
+  sendButton: {
+    padding: 12,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    backgroundColor: 'white',
+    borderTopRightRadius: 12,
+    borderBottomRightRadius: 12,
   },
 };
