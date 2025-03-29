@@ -283,17 +283,15 @@ const NewsCard = ({item}) => {
                     <ScrollView style={{maxHeight: height * 0.3}}>
                       {commentList.map(comment => (
                         <View key={comment.id} style={styles.commentContainer}>
-                          <View style={tw`items-center pb-2`}>
+                          {/* Image, Name, and Time in Row */}
+                          <View style={styles.commentRow}>
                             <Image
                               source={{
                                 uri: 'https://cdn-icons-png.flaticon.com/512/847/847969.png',
                               }}
                               style={styles.profileImage}
                             />
-                            <View style={styles.verticalLine} />
-                          </View>
-                          <View style={styles.commentContent}>
-                            <View style={styles.commentHeader}>
+                            <View style={styles.commentDetails}>
                               <Text style={styles.commentName}>
                                 {comment.name}
                               </Text>
@@ -301,7 +299,11 @@ const NewsCard = ({item}) => {
                                 {comment.time}
                               </Text>
                             </View>
+                          </View>
 
+                          {/* Vertical line and comment text in row */}
+                          <View style={styles.commentContentRow}>
+                            <View style={styles.verticalLine} />
                             <Text style={styles.commentText}>
                               {comment.comment}
                             </Text>
@@ -323,7 +325,7 @@ const NewsCard = ({item}) => {
                         style={styles.sendButton}>
                         <FontAwesomeIcon
                           icon={faPaperPlane}
-                          size={20}
+                          size={30}
                           color="#3c4852"
                         />
                       </TouchableOpacity>
@@ -484,7 +486,6 @@ const styles = {
     minHeight: height * 0.5,
   },
   commentsBox: {
-    backgroundColor: 'rgba(24, 23, 23, 0.8)',
     borderRadius: 40,
     margin: 16,
     padding: 10,
@@ -496,6 +497,11 @@ const styles = {
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 5,
+
+    backgroundColor: ' rgba(0, 0, 0, 0.8)',
+
+    /* Inner Shadow */
+    boxShadow: 'inset 0 0 12px 1px rgba(0, 0, 0, 0.2)',
     minHeight: height * 0.46,
     maxHeight: height * 0.46,
   },
@@ -510,63 +516,64 @@ const styles = {
     textAlign: 'center',
   },
   commentContainer: {
+    marginBottom: 16,
+    paddingBottom: 10,
+  },
+  commentRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-
-    width: '100%',
-    height: '80',
-    color: 'white',
+    alignItems: 'center',
   },
   profileImage: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 12,
+    marginRight: 10,
   },
-  verticalLine: {
-    width: 2, // Vertical line thickness
-    backgroundColor: 'white', // Line color
-    height: '30%', // Full height of the comment box
-    marginRight: 12,
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  commentHeader: {
+  commentDetails: {
     flexDirection: 'row',
-    textAlign: 'center',
-    fontSize: 16,
+    gap: 10,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
   },
   commentName: {
-    fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    fontSize: 16,
+    color: '#fff',
   },
   commentTime: {
     fontSize: 14,
     color: '#aeaeae',
-    fontFamily: 'Poppins',
-    fontWeight: 400,
-    lineHeight: 16,
-    paddingLeft: 10,
+  },
+  commentContentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 16,
+    marginTop: 8,
+  },
+  verticalLine: {
+    width: 2,
+    height: '100%',
+    backgroundColor: '#fff',
+    marginRight: 12,
   },
   commentText: {
-    color: '#fff',
+    flex: 1,
     fontSize: 14,
-    fontFamily: 'Poppins',
+    color: '#fff',
+    marginLeft: 16,
   },
   addCommentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 16,
+    margin: 16,
     color: 'white',
   },
   commentInput: {
     flex: 1,
     borderColor: '#ccc',
     borderWidth: 2,
-    padding: 12,
+    width: 220,
+    height: 48,
     borderTopLeftRadius: 12,
     borderBottomLeftRadius: 12,
     margin: 10,
@@ -574,8 +581,10 @@ const styles = {
     color: 'white',
   },
   sendButton: {
-    padding: 12,
+    padding: 2,
     borderWidth: 2,
+    width: 46,
+    height: 48,
     borderColor: '#ccc',
     backgroundColor: 'white',
     borderTopRightRadius: 12,

@@ -1,97 +1,60 @@
 import React, {useEffect, useRef} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  Animated,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {View, Animated, Easing, Dimensions} from 'react-native';
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 const LoadingCard = () => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0.5)).current;
 
   useEffect(() => {
-    // Fade-in animation
-    Animated.loop(
+    const pulse = Animated.loop(
       Animated.sequence([
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 1000,
+        Animated.timing(scaleAnim, {
+          toValue: 1.2,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
-        Animated.timing(fadeAnim, {
-          toValue: 0.3,
-          duration: 1000,
+        Animated.timing(scaleAnim, {
+          toValue: 0.5,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
       ]),
-    ).start();
+    );
+
+    pulse.start();
+
+    return () => pulse.stop();
   });
 
   return (
-    <LinearGradient
-      colors={['#74EBD5', '#ACB6E5']} // Gradient Colors
-      style={styles.container}>
-      {/* Linear Gradient Background */}
-
-      {/* Centered Image */}
-      <Image
-        source={{
-          uri: 'https://www.bytestudios.com/content/blogs/byte-official.png',
-        }}
-        style={styles.image}
+    <View style={styles.container}>
+      <Animated.View
+        style={[styles.loader, {transform: [{scale: scaleAnim}]}]}
       />
-
-      {/* Animated "Please Wait..." */}
-      <Animated.Text style={[styles.text, {opacity: fadeAnim}]}>
-        Please Wait...
-      </Animated.Text>
-    </LinearGradient>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  /* Main Container */
+export default LoadingCard;
+
+const styles = {
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  /* Gradient Card */
-  card: {
-    width: width * 0.8,
-    height: height * 0.4,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+  loader: {
+    width: width * 0.2,
+    height: width * 0.2,
+    backgroundColor: '#007BFF', // Blue color
+    borderRadius: width * 0.1,
+    shadowColor: '#007BFF',
+    shadowOffset: {width: 0, height: 8},
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
     elevation: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    padding: 20,
   },
-
-  /* Centered Image */
-  image: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-    zIndex: 2,
-  },
-
-  /* Animated Text */
-  text: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: '#fff',
-    fontFamily: 'Poppins',
-  },
-});
-
-export default LoadingCard;
+};
